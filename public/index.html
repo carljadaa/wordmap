@@ -1,0 +1,51 @@
+<html style="padding: 0; margin: 0;">
+	<head>
+		<!-- Link to the Socket.io Module in the browser-->
+		<script src="http://carlduino.local/socket.io/socket.io.js"></script>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script>
+			//connect to our socket via the port we specified in the server
+			
+			$(document).ready(function(){
+
+				var socket = io.connect('http://carlduino.local:9001'); 
+
+
+
+				socket.on('twitter',function(data){
+					console.log(data);
+					var html = "<div class='tweet'><h2>";
+						html += data.text;
+						html += "</h2></div>";
+
+					$('body').prepend(html);
+
+				});
+
+
+
+
+
+			});
+
+				function uintToString(uintArray) {
+			var encodedString = String.fromCharCode.apply(null, uintArray),
+			decodedString = decodeURIComponent(escape(encodedString));
+			return decodedString;
+		}
+		
+
+		</script>
+	
+	</head>
+	<body id="main" style="padding: 0; margin: 0;">
+
+		<form id="textbox" method="post" action="/input/text">
+		<input type="text" placeholder="enter some text..." name="mytext">
+		<input type="submit" value="Send">
+	</form>
+
+
+		
+	</body>
+</html>

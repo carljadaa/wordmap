@@ -1,0 +1,205 @@
+<html style="padding: 0; margin: 0;">
+	<head>
+		<!-- Link to the Socket.io Module in the browser-->
+		<script src="http://localhost:9001/socket.io/socket.io.js"></script>
+		 <!-- // <script src="js/jquery-1.9.1.min.js"></script> -->
+		<script src="pace.min.js"></script>
+<!-- <script src="jquery-twitter-plugin.js"></script> -->
+
+
+		<style>
+
+		@font-face {
+font-family: DINCond-Bold;
+src: url("/DINCond-Bold.otf") format("opentype");
+}
+
+@font-face {
+font-family: DINCond-Light;
+src: url("/DINCond-Light.otf") format("opentype");
+}
+
+@font-face {
+font-family: AmericanTypewriter;
+src: url("/AmericanTypewriter.ttc") format("truetype");
+}
+.logo {width: 400px;
+display: block;
+margin: auto;}
+.logo h1 {font-family: 'DINCOND-Bold';
+font-size: 80px;
+color: #FFF;
+display: inline-block;
+text-align: center;
+padding-bottom: 0px;
+margin-bottom: 0px;}
+.logo h2 {font-family: 'AmericanTypewriter';
+font-size: 80px;
+color: #07ADD5;
+display: inline-block;
+font-weight: 100;
+text-align: center;
+padding-bottom: 0px;
+margin-bottom: 0px;}
+.logo h3 {font-family: 'DINCOND-Light';
+font-size: 28px;
+color: #EAEAEA;
+margin-top: 0px;
+font-weight: 100;}
+
+		.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace .pace-progress {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  height: 42px;
+  background: #29d;
+  opacity: 0.9;
+
+  -webkit-transition: -webkit-transform .3s, width 1s;
+  -moz-transition: width 1s;
+  -o-transform: width 1s;
+  transition: transform .3s, width 1s;
+
+  -webkit-transform: translateY(-50px);
+  transform: translateY(-50px);
+
+  pointer-events: none;
+}
+
+.pace.pace-active .pace-progress {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+
+		button {
+	width: 15%;
+height: 47%;
+display: inline-block;
+font-family: Arial, "Helvetica", sans-serif;
+font-size: 26px;
+font-weight: bold;
+color: #FFF;
+text-decoration: none;
+text-transform: uppercase;
+text-align: center;
+/* text-shadow: 1px 1px 0px #07526E; */
+padding-top: 6px;
+margin-left: auto;
+margin-right: auto;
+left: 30px;
+position: relative;
+cursor: pointer;
+border: none;
+background: #07ADD5;
+background-image: linear-gradient(bottom, rgb(14,137,182) 0%, rgb(22,179,236) 100%);
+background-image: -webkit-gradient(bottom, rgb(14,137,182) 0%, rgb(22,179,236) 100%);
+border-radius: 5px;
+box-shadow: inset 0px 1px 0px #1C9ACA, 0px 5px 0px 0px #9DC5D3, 0px 10px 5px #2C2C2C;
+top: -30px;
+}
+
+button:active {
+  top:3px;
+  box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #07526e, 0px 5px 3px #999;
+}
+
+button:before {
+  
+  font-size: 50px;
+  line-height: 1em;
+  font-weight: normal;
+  color: #fff;
+
+  width:85px;
+  height:90px;
+  display:block;
+  position:absolute;
+  padding-top:10px;
+  top:10px;
+  text-shadow: 1px 1px 2px #07526e;
+
+}
+
+button:active:before {
+  top: 7px;
+  font-size: 50px;
+  text-shadow: 0px 3px 0px #07526e, 0px 5px 1px #07526e/*, 3px 0px 1px #07526e, 3px 3px 1px #07526e,
+     -2px 0px 1px #68cff2*/;
+}
+
+</style>
+		<script>
+			//connect to our socket via the port we specified in the server
+			
+			$(document).ready(function(){
+
+				var socket = io.connect('http://localhost:9001'); 
+
+
+
+				socket.on('twitter',function(data){
+					console.log(data);
+					var html = "<div class='tweet'><h2>";
+						html += data.text;
+						html += "</h2></div>";
+
+					$('body').prepend(html);
+
+				});
+
+
+
+
+
+			});
+
+				function uintToString(uintArray) {
+			var encodedString = String.fromCharCode.apply(null, uintArray),
+			decodedString = decodeURIComponent(escape(encodedString));
+			return decodedString;
+		}
+		
+
+		</script>
+
+
+	
+	</head>
+	<body id="main" style="background-image: url('http://carljadaa.com/footer_lodyas.png'); padding: 0; margin: 0;">
+
+		
+
+		<div class="logo"><h1>wor(l)d</h1><h2>map</h2><br><h3>a real-time visualization of tweets on a map.</h3></div>
+
+		<form style="margin: auto;
+text-align: center;
+width: 90%;
+margin-top: 100px;" id="textbox" method="post" action="/input/text">
+		<input style="padding-left: 20px; background-color: rgba(208, 208, 208, 0.33);
+border: none;
+padding: 10px;
+width: 80%;
+height: 50%;
+font-size: 100px;
+color: #FFF;
+border-radius: 10px;
+box-shadow: inset 2px 3px 5px #1B1B1B;" type="text" placeholder="Enter Search Term" name="mytext">
+		<button type="submit" value="Send">visualize</button>
+	</form>
+
+
+
+		
+	</body>
+</html>
